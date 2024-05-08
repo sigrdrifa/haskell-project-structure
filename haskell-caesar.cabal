@@ -1,0 +1,58 @@
+cabal-version:      3.6
+name:               haskell-caesar
+version:            0.1.0.0
+license:            MIT
+license-file:       LICENSE
+author:             sig
+maintainer:         sig@eldr.io
+category:           Testing
+build-type:         Simple
+extra-doc-files:    CHANGELOG.md
+
+common warnings
+    ghc-options: -Wall
+
+library
+    import:           warnings
+    exposed-modules:  
+      Caesar,
+      Data.Alphabet.Alphabet
+    build-depends:    base ^>=4.17.2.1
+    hs-source-dirs:   lib
+    default-language: GHC2021
+
+executable haskell-caesar
+    import:           warnings
+    main-is:          Main.hs
+    build-depends:
+        base ^>=4.17.2.1,
+        haskell-caesar
+
+    hs-source-dirs:   app
+    default-language: GHC2021
+
+test-suite haskell-caesar-test
+    import:           warnings
+    default-language: GHC2021
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          Main.hs
+    build-depends:
+        base ^>=4.17.2.1,
+        haskell-caesar,
+        hspec
+    build-tool-depends: hspec-discover:hspec-discover
+
+test-suite haskell-caesar-test-integration
+    import:           warnings
+    default-language: GHC2021
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test-integration
+    main-is:          Main.hs
+    build-depends:
+        base ^>=4.17.2.1,
+        haskell-caesar,
+        hspec,
+        testcontainers,
+        http-client,
+        http-conduit
